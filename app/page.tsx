@@ -19,7 +19,7 @@ export default function Page() {
   const [hasDreamCrystal, setHasDreamCrystal] = useState(false)
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center p-4 overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex items-center justify-center overflow-auto">
       {/* Background particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 50 }).map((_, i) => (

@@ -81,16 +81,16 @@ export function TheHub({
         {hasDreamCrystal && (
           <button
             onClick={onOpenDream}
-            className="absolute top-0 right-6 w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full shadow-lg shadow-purple-500/50 flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-purple-500/70 group"
+            className="absolute top-0 right-6 w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full shadow-lg shadow-purple-500/50 flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-purple-500/70 group cursor-pointer z-50"
           >
             {/* Magic Bottle Icon */}
-            <div className="relative">
+            <div className="relative pointer-events-none">
               <Sparkles className="w-8 h-8 text-white group-hover:animate-pulse" />
               {/* Inner glow effect */}
               <div className="absolute inset-0 bg-white/20 rounded-full blur-sm group-hover:bg-white/30 transition-all" />
             </div>
             {/* Red Dot Notification */}
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-black animate-pulse shadow-lg shadow-red-500/50" />
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-black animate-pulse shadow-lg shadow-red-500/50 pointer-events-none" />
           </button>
         )}
 

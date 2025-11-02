@@ -250,11 +250,17 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
             <div className="bg-amber-50/80 p-6 space-y-4 mt-4">
               {/* Author Info */}
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-md">
-                  🧙
+                <div className="w-10 h-10 rounded-full overflow-hidden shadow-md">
+                  <Image
+                    src="/Frankie.png"
+                    alt="Frankie"
+                    width={40}
+                    height={40}
+                    className="object-cover"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-800">Nebula</h3>
+                  <h3 className="text-sm font-bold text-gray-800">Frankie</h3>
                   <p className="text-xs text-gray-500">Your Dream Sprite</p>
                 </div>
               </div>
@@ -263,55 +269,42 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
               <div className="space-y-2">
                 {currentPage === 0 && (
                   <p className="text-sm text-gray-800 leading-relaxed">
-                    I&apos;m back! I took your dream energy and embarked on a magical adventure.
-                    At the Starlight Gate, I faced my first challenge - unlocking the portal with the emotional power you gave me.
-                    When I infused{" "}
-                    {ingredients.slice(0, 3).map((ing, i) => (
-                      <span key={i}>
-                        <span className="font-semibold text-purple-600">&apos;{ing}&apos;</span>
-                        {i < ingredients.slice(0, 3).length - 2 && ", "}
-                        {i === ingredients.slice(0, 3).length - 2 && " and "}
-                      </span>
-                    ))}{" "}
-                    into the gate, brilliant light illuminated the entire universe, and the door slowly opened...
+                    I spawn in, and I&apos;m already over it. I&apos;m literally buried under a mountain of{" "}
+                    <span className="font-semibold text-purple-600">Homework</span>. Not a metaphor. An actual, physical mountain of assignments.
+                    The air smells like <span className="font-semibold text-purple-600">Anxiety</span> (which, btw, smells like burnt toast and regret).
+                    I try to climb out, but every time I move a paper, ten more fall on me. Not me literally about to be taken out by a due date.
+                    I give up. I&apos;m just a girl... who&apos;s gonna fail this class. I put on my headphones, turn on my{" "}
+                    <span className="font-semibold text-purple-600">Music</span>. I queue up the full Lana Del Rey discography, ready to just... vibe in my sad girl era.
+                    It&apos;s giving &quot;main character in a very sad indie film.&quot;
                   </p>
                 )}
 
                 {currentPage === 1 && (
                   <p className="text-sm text-gray-800 leading-relaxed">
-                    Beyond the gate, I ventured deep into the Dream Forest.
-                    Every tree whispered ancient secrets, and each leaf sparkled with memories.
-                    Using your{" "}
-                    {ingredients.slice(3, 6).map((ing, i) => (
-                      <span key={i}>
-                        <span className="font-semibold text-purple-600">&apos;{ing}&apos;</span>
-                        {i < ingredients.slice(3, 6).length - 2 && ", "}
-                        {i === ingredients.slice(3, 6).length - 2 && " and "}
-                      </span>
-                    ))}{" "}
-                    I awakened the Forest Guardian, who revealed the hidden path to the Dream Ocean...
+                    And that&apos;s when I hear it. A THUD. THUD. THUD. That is not a Lana Del Rey drum beat.
+                    Suddenly, a <span className="font-semibold text-purple-600">Dog</span> bursts through my homework wall. It&apos;s a Golden Retriever.
+                    It&apos;s wearing sunglasses. And it&apos;s <span className="font-semibold text-purple-600">Running</span>. Like, full-on, high-knees running... in place.
+                    And it looks... aggressively <span className="font-semibold text-purple-600">Happy</span>.
+                    It barks at me, and I swear its &quot;happy&quot; energy almost gave me a sunburn. It grabs a corner of my Homework... not to help, but to play tug-of-war.
+                    My &quot;Summertime Sadness&quot; playlist is immediately drowned out by its panting and a built-in &quot;Who Let the Dogs Out&quot; soundtrack.
                   </p>
                 )}
 
                 {currentPage === 2 && (
                   <p className="text-sm text-gray-800 leading-relaxed">
-                    Finally, I reached the shores of the Dream Ocean - where a Crystal Palace woven from starlight stood.
-                    At its heart, I discovered the most precious fragments of your dreams.
-                    With your final{" "}
-                    {ingredients.slice(6, 9).map((ing, i) => (
-                      <span key={i}>
-                        <span className="font-semibold text-purple-600">&apos;{ing}&apos;</span>
-                        {i < ingredients.slice(6, 9).length - 2 && ", "}
-                        {i === ingredients.slice(6, 9).length - 2 && " and "}
-                      </span>
-                    ))}{" "}
-                    I restored these fragments, and now they shine brighter than the stars... ✨
+                    I&apos;m losing it. &quot;Dude, not the vibe!&quot; I&apos;m pulling on my 18th-century literature essay (Homework), and this thing is pulling back, growling playfully.
+                    My <span className="font-semibold text-purple-600">Anxiety</span> is now at an all-time high—not because of the homework, but because of this dog.
+                    My <span className="font-semibold text-purple-600">Music</span> auto-switches from Lana to some hardcore thrash metal.
+                    So now it&apos;s just me, the Emo Kid, and this Manic Furball, <span className="font-semibold text-purple-600">Running</span> in place,
+                    having a high-stakes tug-of-war in the ruins of my GPA.
+                    Finally, I just let go. The Dog, looking way too Happy about its victory, grabs the paper and just... phases back through the wall.
+                    It left. Just... gone. Leaving me alone with my anxiety and a lot of slobber.
                   </p>
                 )}
               </div>
 
               {/* Ingredients Tags - Only show current page's ingredients */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mt-4">
                 {currentPage === 0 && ingredients.slice(0, 3).map((ing, i) => (
                   <span
                     key={i}
@@ -357,7 +350,11 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="text-gray-500">📍</span>
-                    <span className="font-medium">Dreamscape</span>
+                    <span className="font-medium">
+                      {currentPage === 0 && "Homework Mountain"}
+                      {currentPage === 1 && "Homework Wall"}
+                      {currentPage === 2 && "GPA Ruins"}
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center justify-end text-xs text-gray-500">
@@ -387,7 +384,7 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
                     <div className="w-12 h-12 rounded-lg border-2 border-gray-300 bg-white flex items-center justify-center hover:border-blue-400 hover:bg-blue-50 transition-colors">
                       <MessageCircle className="w-6 h-6 text-gray-600" />
                     </div>
-                    <span className="text-xs font-medium text-gray-700">1</span>
+                    <span className="text-xs font-medium text-gray-700">2</span>
                   </button>
 
                   {/* Share Button */}
@@ -431,6 +428,44 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
             <div className="mt-4 bg-white rounded-lg shadow-lg border border-amber-200 p-4 animate-fade-in">
               <h3 className="text-sm font-bold text-gray-800 mb-3">Comments</h3>
               <div className="space-y-3">
+                {/* Frankie's Comment - Always first */}
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                    <Image
+                      src="/Frankie.png"
+                      alt="Frankie"
+                      width={32}
+                      height={32}
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="bg-purple-50 rounded-lg p-3 border border-purple-200">
+                      <p className="text-xs font-semibold text-purple-900">Frankie</p>
+                      {currentPage === 0 && (
+                        <p className="text-xs text-gray-700 mt-1">
+                          Spawned in and already buried alive? Bet. Not me entering my &apos;sad girl era&apos; on day one.
+                          Don&apos;t mind me, just vibin&apos; with my Anxiety. The main character energy is... bleak.
+                        </p>
+                      )}
+                      {currentPage === 1 && (
+                        <p className="text-xs text-gray-700 mt-1">
+                          ??? EXCUSE ME?! Who let this guy in? Dude, read the room! I was busy being emo!
+                          The vibe was so off. And &apos;Who Let the Dogs Out?&apos;... It&apos;s giving... 2003. Cringe.
+                        </p>
+                      )}
+                      {currentPage === 2 && (
+                        <p className="text-xs text-gray-700 mt-1">
+                          Tonight&apos;s Vibe Rating: Schizophrenic / 10. The Roast: I lost... I actually lost to a dog.
+                          My Anxiety feels... violated by all that slobber. Can you two please coordinate your vibes next time?
+                          One &apos;emo&apos; and one &apos;eager&apos; is a combo that&apos;s gonna send me into early retirement.
+                        </p>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1 ml-2">3 hours ago</p>
+                  </div>
+                </div>
+
                 {/* Page 1 Comments */}
                 {currentPage === 0 && (
                   <div className="flex gap-3">
@@ -441,7 +476,7 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
                       <div className="bg-gray-100 rounded-lg p-3">
                         <p className="text-xs font-semibold text-gray-800">Matilda</p>
                         <p className="text-xs text-gray-700 mt-1">
-                          The Starlight Gate looks absolutely magical! ✨ I love how the emotions unlocked it!
+                          OMG the homework mountain is TOO real 😭 And Lana Del Rey? Perfect soundtrack for this vibe! Stay strong bestie! 💜
                         </p>
                       </div>
                       <p className="text-xs text-gray-500 mt-1 ml-2">2 hours ago</p>
@@ -459,7 +494,7 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
                       <div className="bg-gray-100 rounded-lg p-3">
                         <p className="text-xs font-semibold text-gray-800">Ada</p>
                         <p className="text-xs text-gray-700 mt-1">
-                          The Dream Forest sounds enchanting! 🌲 I wonder what secrets the Guardian shared with you?
+                          A golden retriever with sunglasses running in place?! 😂 This is the chaotic energy we didn&apos;t know we needed! 🐕✨
                         </p>
                       </div>
                       <p className="text-xs text-gray-500 mt-1 ml-2">1 hour ago</p>
@@ -477,7 +512,7 @@ export function SharedDream({ ingredients, onClose }: SharedDreamProps) {
                       <div className="bg-gray-100 rounded-lg p-3">
                         <p className="text-xs font-semibold text-gray-800">Matilda</p>
                         <p className="text-xs text-gray-700 mt-1">
-                          The Crystal Palace finale is breathtaking! 💎 This whole journey was incredible!
+                          The way you went from Lana to thrash metal 💀 This whole dream is a MOOD ROLLERCOASTER! Love it! 🎢
                         </p>
                       </div>
                       <p className="text-xs text-gray-500 mt-1 ml-2">30 minutes ago</p>

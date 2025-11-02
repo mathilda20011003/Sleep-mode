@@ -42,14 +42,6 @@ const presetIngredients = [
 const TEAM_MEMBERS_CONFIG = [
   { id: "you", name: "You", initial: "Y", color: "from-purple-500 to-pink-500" },
   {
-    id: "mathilda",
-    name: "Mathilda",
-    initial: "M",
-    color: "from-blue-400 to-cyan-400",
-    targetIngredients: ["Happy", "Creative", "Peaceful"],
-    delays: [2000, 4000, 6000] // When to add each ingredient (ms)
-  },
-  {
     id: "ada",
     name: "Ada",
     initial: "A",
@@ -72,7 +64,6 @@ export function DreamIngredients({ onClose, onFeedAndSleep }: DreamIngredientsPr
   // Track team members' dynamic ingredient selection
   const [teamIngredients, setTeamIngredients] = useState<Record<string, string[]>>({
     you: [],
-    mathilda: [],
     ada: [],
   })
 
@@ -85,9 +76,12 @@ export function DreamIngredients({ onClose, onFeedAndSleep }: DreamIngredientsPr
 
       member.delays.forEach((delay, index) => {
         const timeout = setTimeout(() => {
+          const ingredient = member.targetIngredients![index]
+
+          // 仅将成分加入 Ada 的选择（不爆破、不隐藏，不改变布局）
           setTeamIngredients((prev) => ({
             ...prev,
-            [member.id]: [...prev[member.id], member.targetIngredients![index]],
+            [member.id]: [...prev[member.id], ingredient],
           }))
         }, delay)
 
@@ -132,10 +126,16 @@ export function DreamIngredients({ onClose, onFeedAndSleep }: DreamIngredientsPr
   }, [])
 
   const toggleIngredient = (label: string) => {
+    // If Ada already selected this ingredient, block choosing it
+    const isSelectedByAda = teamIngredients.ada.includes(label)
+    if (isSelectedByAda) return
+
     if (selected.includes(label)) {
-      setSelected(selected.filter((i) => i !== label))
+      // Deselect immediately, no pop animation
+      setSelected((prev) => prev.filter((i) => i !== label))
     } else if (selected.length < 3) {
-      setSelected([...selected, label])
+      // Select immediately
+      setSelected((prev) => [...prev, label])
     }
   }
 
@@ -144,6 +144,34 @@ export function DreamIngredients({ onClose, onFeedAndSleep }: DreamIngredientsPr
       setSelected([...selected, customInput.trim()])
       setCustomInput("")
     }
+  }
+
+  // Helper function to render ingredient button
+  const renderIngredientButton = (ingredient: typeof presetIngredients[0], key: string) => {
+    const isSelected = selected.includes(ingredient.label)
+    const isAdaSelected = teamIngredients.ada.includes(ingredient.label)
+
+    return (
+      <button
+        key={key}
+        onClick={() => {
+          if (!isAdaSelected) toggleIngredient(ingredient.label)
+        }}
+        className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg flex-shrink-0 backdrop-blur-sm relative transition-all duration-300 ease-out ${
+          isAdaSelected
+            ? "opacity-30 grayscale cursor-not-allowed pointer-events-none"
+            : "hover:scale-110 active:scale-95 opacity-90"
+        } ${isSelected ? "ring-4 ring-white/80 scale-110" : ""}`}
+        style={{
+          boxShadow: isSelected
+            ? "0 8px 32px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2)"
+            : "0 4px 16px rgba(0, 0, 0, 0.1)",
+        }}
+        aria-disabled={isAdaSelected}
+      >
+        {ingredient.label}
+      </button>
+    )
   }
 
   const handleSubmit = () => {
@@ -422,113 +450,35 @@ export function DreamIngredients({ onClose, onFeedAndSleep }: DreamIngredientsPr
           <div className="absolute inset-0 flex flex-col gap-4 justify-center">
             {/* First Row */}
             <div className="flex gap-3 animate-scroll-right">
-              {presetIngredients.slice(0, 5).map((ingredient) => (
-                <button
-                  key={ingredient.label}
-                  onClick={() => toggleIngredient(ingredient.label)}
-                  className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0 backdrop-blur-sm ${
-                    selected.includes(ingredient.label) ? "ring-4 ring-white/80 scale-110" : "opacity-90"
-                  }`}
-                  style={{
-                    boxShadow: selected.includes(ingredient.label)
-                      ? "0 8px 32px rgba(255, 255, 255, 0.3)"
-                      : "0 4px 16px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {ingredient.label}
-                </button>
-              ))}
+              {presetIngredients.slice(0, 5).map((ingredient) =>
+                renderIngredientButton(ingredient, ingredient.label)
+              )}
               {/* Duplicate for seamless loop */}
-              {presetIngredients.slice(0, 5).map((ingredient) => (
-                <button
-                  key={`${ingredient.label}-dup1`}
-                  onClick={() => toggleIngredient(ingredient.label)}
-                  className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0 backdrop-blur-sm ${
-                    selected.includes(ingredient.label) ? "ring-4 ring-white/80 scale-110" : "opacity-90"
-                  }`}
-                  style={{
-                    boxShadow: selected.includes(ingredient.label)
-                      ? "0 8px 32px rgba(255, 255, 255, 0.3)"
-                      : "0 4px 16px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {ingredient.label}
-                </button>
-              ))}
+              {presetIngredients.slice(0, 5).map((ingredient) =>
+                renderIngredientButton(ingredient, `${ingredient.label}-dup1`)
+              )}
             </div>
 
             {/* Second Row */}
             <div className="flex gap-3 animate-scroll-right-slow">
-              {presetIngredients.slice(5, 10).map((ingredient) => (
-                <button
-                  key={ingredient.label}
-                  onClick={() => toggleIngredient(ingredient.label)}
-                  className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0 backdrop-blur-sm ${
-                    selected.includes(ingredient.label) ? "ring-4 ring-white/80 scale-110" : "opacity-90"
-                  }`}
-                  style={{
-                    boxShadow: selected.includes(ingredient.label)
-                      ? "0 8px 32px rgba(255, 255, 255, 0.3)"
-                      : "0 4px 16px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {ingredient.label}
-                </button>
-              ))}
+              {presetIngredients.slice(5, 10).map((ingredient) =>
+                renderIngredientButton(ingredient, ingredient.label)
+              )}
               {/* Duplicate for seamless loop */}
-              {presetIngredients.slice(5, 10).map((ingredient) => (
-                <button
-                  key={`${ingredient.label}-dup2`}
-                  onClick={() => toggleIngredient(ingredient.label)}
-                  className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0 backdrop-blur-sm ${
-                    selected.includes(ingredient.label) ? "ring-4 ring-white/80 scale-110" : "opacity-90"
-                  }`}
-                  style={{
-                    boxShadow: selected.includes(ingredient.label)
-                      ? "0 8px 32px rgba(255, 255, 255, 0.3)"
-                      : "0 4px 16px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {ingredient.label}
-                </button>
-              ))}
+              {presetIngredients.slice(5, 10).map((ingredient) =>
+                renderIngredientButton(ingredient, `${ingredient.label}-dup2`)
+              )}
             </div>
 
             {/* Third Row */}
             <div className="flex gap-3 animate-scroll-right-fast">
-              {presetIngredients.slice(10, 15).map((ingredient) => (
-                <button
-                  key={ingredient.label}
-                  onClick={() => toggleIngredient(ingredient.label)}
-                  className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0 backdrop-blur-sm ${
-                    selected.includes(ingredient.label) ? "ring-4 ring-white/80 scale-110" : "opacity-90"
-                  }`}
-                  style={{
-                    boxShadow: selected.includes(ingredient.label)
-                      ? "0 8px 32px rgba(255, 255, 255, 0.3)"
-                      : "0 4px 16px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {ingredient.label}
-                </button>
-              ))}
+              {presetIngredients.slice(10, 15).map((ingredient) =>
+                renderIngredientButton(ingredient, ingredient.label)
+              )}
               {/* Duplicate for seamless loop */}
-              {presetIngredients.slice(10, 15).map((ingredient) => (
-                <button
-                  key={`${ingredient.label}-dup3`}
-                  onClick={() => toggleIngredient(ingredient.label)}
-                  className={`px-6 py-3 bg-gradient-to-r ${ingredient.color} rounded-full text-gray-800 font-medium shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0 backdrop-blur-sm ${
-                    selected.includes(ingredient.label) ? "ring-4 ring-white/80 scale-110" : "opacity-90"
-                  }`}
-                  style={{
-                    boxShadow: selected.includes(ingredient.label)
-                      ? "0 8px 32px rgba(255, 255, 255, 0.3)"
-                      : "0 4px 16px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  {ingredient.label}
-                </button>
-              ))}
+              {presetIngredients.slice(10, 15).map((ingredient) =>
+                renderIngredientButton(ingredient, `${ingredient.label}-dup3`)
+              )}
             </div>
           </div>
         </div>
@@ -554,25 +504,34 @@ export function DreamIngredients({ onClose, onFeedAndSleep }: DreamIngredientsPr
                     />
 
                     {/* Ingredients as inline text with separators */}
-                    {ingredients.map((item, index) => (
-                      <span key={item} className="inline-flex items-center animate-slide-in-right">
-                        <button
-                          onClick={() => isYou && toggleIngredient(item)}
-                          className={`transition-all ${
-                            isYou
-                              ? "text-purple-300 hover:text-purple-200 underline decoration-dotted underline-offset-2 cursor-pointer"
-                              : isComplete
-                              ? "text-white/40"
-                              : "text-white/60"
-                          }`}
+                    {ingredients.map((item, index) => {
+                      return (
+                        <span
+                          key={item}
+                          className={"inline-flex items-center animate-slide-in-right transition-all duration-500 ease-out"}
                         >
-                          {item}
-                        </button>
-                        {index < ingredients.length - 1 && (
-                          <span className="text-white/30 mx-0.5">,</span>
-                        )}
-                      </span>
-                    ))}
+                          <button
+                            onClick={() => {
+                              if (isYou) {
+                                toggleIngredient(item)
+                              }
+                            }}
+                            className={`relative transition-all duration-300 ${
+                              isYou
+                                ? "text-purple-300 hover:text-purple-200 hover:scale-110 active:scale-95 underline decoration-dotted underline-offset-2 cursor-pointer"
+                                : isComplete
+                                ? "text-white/40"
+                                : "text-white/60"
+                            }`}
+                          >
+                            {item}
+                          </button>
+                          {index < ingredients.length - 1 && (
+                            <span className="text-white/30 mx-0.5 transition-all duration-300">,</span>
+                          )}
+                        </span>
+                      )
+                    })}
 
                     {/* Separator between members */}
                     {memberIndex < TEAM_MEMBERS_CONFIG.length - 1 &&

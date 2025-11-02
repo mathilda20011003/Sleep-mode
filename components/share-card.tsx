@@ -80,11 +80,17 @@ export function ShareCard({ type, ingredients, onClose }: ShareCardProps) {
             <div className="p-6 space-y-4">
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl shadow-md">
-                  🧙
+                <div className="w-12 h-12 rounded-full overflow-hidden shadow-md">
+                  <Image
+                    src="/Frankie.png"
+                    alt="Frankie"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-gray-800">Nebula</h3>
+                  <h3 className="text-base font-bold text-gray-800">Frankie</h3>
                   <p className="text-xs text-gray-500">Your Dream Sprite</p>
                 </div>
               </div>
@@ -178,11 +184,17 @@ export function ShareCard({ type, ingredients, onClose }: ShareCardProps) {
             <div className="p-6 space-y-4">
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl shadow-md">
-                  🧙
+                <div className="w-12 h-12 rounded-full overflow-hidden shadow-md">
+                  <Image
+                    src="/Frankie.png"
+                    alt="Frankie"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-gray-800">Nebula</h3>
+                  <h3 className="text-base font-bold text-gray-800">Frankie</h3>
                   <p className="text-xs text-gray-500">Your Dream Sprite</p>
                 </div>
               </div>
@@ -285,11 +297,17 @@ export function ShareCard({ type, ingredients, onClose }: ShareCardProps) {
             <div className="p-6 space-y-4">
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl shadow-md">
-                  🧙
+                <div className="w-12 h-12 rounded-full overflow-hidden shadow-md">
+                  <Image
+                    src="/Frankie.png"
+                    alt="Frankie"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-gray-800">Nebula</h3>
+                  <h3 className="text-base font-bold text-gray-800">Frankie</h3>
                   <p className="text-xs text-gray-500">Your Dream Sprite</p>
                 </div>
               </div>

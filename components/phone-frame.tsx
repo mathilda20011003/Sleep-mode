@@ -21,9 +21,9 @@ export function PhoneFrame({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative flex items-center justify-center min-h-screen py-4">
       {/* iPhone Frame */}
-      <div className="relative w-[375px] h-[812px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-3 shadow-2xl">
+      <div className="relative w-[375px] h-[812px] max-h-[95vh] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-3 shadow-2xl">
         {/* Notch */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-black rounded-b-3xl z-20" />
 
